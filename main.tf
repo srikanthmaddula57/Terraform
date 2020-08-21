@@ -20,19 +20,17 @@ resource "aws_key_pair" "keypair" {
   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDa26FKyzZd0uExWF/XKO/9gsa4pNH6yIAtrJTU6bt3pXjWo0W4AbQjTxHe3GnKtAgxhpIX6jPmu+TbykEs53w4dfMaDqbtwKxNj7IwfkSU1AgEgP1vSDh3q9yOhp6JaEqY7qqrOEaTHHZvWsHstiZG8UKg4Ba7/91i9Pib2OQ2nQrKyKp4r9H1cjXEijYNFI3gtgqG9HOSDu0xWsCPNEJ05mKJ8VxXNFeJyxmjBdqjS/xS83bmocrMq+SE+6OQuKgFZ1hb3svnfVZv1rEFxITO/1tQOJqh4UuBgXXBn5n+RlRUtoUvZDM+YHpnDjoEr8HnzrIG5X4Xw2ksmluSqkpL root@ip-172-31-45-202"
 }
 
-resource "aws_eip" "myeip" {
-  vpc = true
-  instance = "{aws_instance.web.id}"
-}
 
-resource "aws_vpc" "myvpc" {
-  cidr_block = "10.10.0.0/16"
+resource "aws_default_vpc" "default" {
+  tags = {
+    Name = "Default VPC"
+  }
 }
 
 resource "aws_security_group" "allow_ports" {
   name = "allow_ports"
   description = "Allow inbound traffic"
-  vpc_id =  "${aws_vpc.myvpc.id}"
+  vpc_id =  "${aws_default_vpc.default.id}"
 
   ingress {
     description = "http from vpc" 
