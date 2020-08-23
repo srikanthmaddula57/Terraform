@@ -1,7 +1,7 @@
 # Terraform Provisioning S3
 
 provider "aws" {
-region = "ap-southeast-1"
+region = "ap-southeast-1"    #given access and secret keys through aws configure command
 }
 
 resource "aws_s3_bucket" "bucket" {
