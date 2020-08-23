@@ -7,7 +7,10 @@ region = "ap-southeast-1"    #given access and secret keys through aws configure
 resource "aws_s3_bucket" "bucket" {
   bucket = "srikanth-143786"
   acl    = "private"
-
+  versioning {
+    enabled = true
+  }
+  
   tags = {
     Name         = "my bucket"
     Environment  = "Dev"
